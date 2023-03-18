@@ -37,7 +37,6 @@ from sklearn.compose import make_column_selector as selector, ColumnTransformer
 from sklearn.preprocessing import OneHotEncoder, StandardScaler, OrdinalEncoder
 import pickle
 from sklearn.metrics import fbeta_score
-import winsound
 from sklearn.linear_model import LinearRegression
 from sklearn import tree, preprocessing
 from sklearn.model_selection import train_test_split
