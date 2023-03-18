@@ -35,8 +35,6 @@ pst = datetime.datetime.now(pst)
 today = pst.strftime('%Y-%m-%d')
 
 # Load Data
-# set directory
-os.chdir('C:\\Users\\Travis\\OneDrive\\Data Science\\Personal_Projects\\Sports\\NBA_Prediction_V3_1')
 
 player_numbers = pd.read_csv('data/player/nba_com_info/players_and_photo_links.csv')
 # add capitalized player name
