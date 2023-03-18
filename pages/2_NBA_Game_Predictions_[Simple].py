@@ -57,9 +57,10 @@ from plotly.subplots import make_subplots
 
 st.set_page_config(layout='wide')
 
-today = datetime.datetime.today().strftime('%Y-%m-%d')
-# print the day
-st.write(f' the date is {today}')
+date_time = datetime.datetime.now()
+# subtract 7 hours to get to PST
+date_time = date_time - datetime.timedelta(hours=7)
+today = date_time.strftime('%Y-%m-%d')
 
 # Load
 today_df = pd.read_csv('data/team/aggregates/daily_updates/today_df_'+str(today)+'.csv', low_memory=False)

@@ -61,7 +61,7 @@ date_time = datetime.datetime.now()
 # subtract 7 hours to get to PST
 date_time = date_time - datetime.timedelta(hours=7)
 today = date_time.strftime('%Y-%m-%d')
-st.write(f' the date is {today}')
+
 
 
 # Load
