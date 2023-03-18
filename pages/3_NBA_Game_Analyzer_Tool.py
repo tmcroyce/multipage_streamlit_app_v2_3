@@ -22,7 +22,7 @@ from random import randint
 import  random
 import os
 import plotly.graph_objs as go
-os.chdir('C:\\Users\\Travis\\OneDrive\\Data Science\\Personal_Projects\\Sports\\NBA_Prediction_V3_1')
+#os.chdir('C:\\Users\\Travis\\OneDrive\\Data Science\\Personal_Projects\\Sports\\NBA_Prediction_V3_1')
 from cmath import nan
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
