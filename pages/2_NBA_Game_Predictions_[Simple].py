@@ -261,7 +261,7 @@ games_df['path'] = 'data/team/logos/' + games_df['team_abv'] + '.png'
 
 
 # load model
-model = pickle.load(open('pickle_models/pipe_1.pkl', 'rb'))
+#model = pickle.load(open('pickle_models/pipe_1.pkl', 'rb'))
 
 
 ############ START OF APP ############
