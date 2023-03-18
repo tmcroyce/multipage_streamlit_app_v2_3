@@ -18,8 +18,6 @@ import warnings
 warnings.filterwarnings('ignore')
 import requests
 import json
-import xgboost
-from xgboost import XGBClassifier
 from random import randint
 import  random
 import os
