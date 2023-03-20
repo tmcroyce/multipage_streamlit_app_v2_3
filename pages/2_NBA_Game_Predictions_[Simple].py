@@ -368,7 +368,9 @@ now = datetime.datetime.now()
 now = now.strftime("%H:%M:%S")
 # change to normal time from military time
 now = datetime.datetime.strptime(now, '%H:%M:%S').strftime('%I:%M %p')
-st.sidebar.write('Last Refreshed: {}'.format(now))
+# subtract 7 hours to get pst
+now = datetime.datetime.strptime(now, '%I:%M %p') - datetime.timedelta(hours=7)
+# st.sidebar.write('Last Refreshed: {}'.format(now))
 
 st.sidebar.subheader('All Games Today')
 st.sidebar.table(games_and_times.reset_index(drop=True))
