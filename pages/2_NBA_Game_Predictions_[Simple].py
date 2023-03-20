@@ -218,10 +218,10 @@ g12 = fix_prediction(g12)
 games = [g1, g2, g3, g4, g5, g6, g7, g8, g9, g10, g11, g12]
 
 games_df = pd.concat(games)
-final_cols = ['TODAY', 'team_abv', 'SPREAD', 'TOTAL', 'MONEYLINE', 'new_probs', 'EV_Fixed']
+final_cols = ['TODAY', 'team_abv', 'SPREAD', 'TOTAL', 'MONEYLINE', 'new_probs']
 games_df = games_df[final_cols]
 # rename
-games_df = games_df.rename(columns={'TODAY':'Team', 'SPREAD':'Spread', 'TOTAL':'Total', 'MONEYLINE':'Moneyline', 'new_probs':'Win Probability', 'EV_Fixed':'EV'})
+games_df = games_df.rename(columns={'TODAY':'Team', 'SPREAD':'Spread', 'TOTAL':'Total', 'MONEYLINE':'Moneyline', 'new_probs':'Win Probability'})
 
 
 # names dictionary
@@ -287,7 +287,7 @@ games_df['Spread'] = games_df['Spread'].astype(float)
 games_df_show = games_df.drop(columns=['path'])
 
 # add select button if they want to see a table with all games and teams
-st.table(games_df_show.style.format({'Spread': '{:.1f}', 'Total': '{:.1f}', 'Win Probability': '{:.0%}', 'EV': '{:.1f}', 'Moneyline': '{:+}'}))
+st.table(games_df_show.style.format({'Spread': '{:.1f}', 'Total': '{:.1f}', 'Win Probability': '{:.0%}', 'Moneyline': '{:+}'}))
 
 st.write('Win Probability is the machine learning model\'s prediction of the probability of the team winning the game. EV is the expected value of a bet at the current odds with the model-predicted win probability.')
 
@@ -350,8 +350,6 @@ for game in games_list:
         col2.write(f'**Moneyline:** {game["Moneyline"].iloc[1]}')
         col1.write(f'**Win Probability:** {game["Win Probability"].iloc[0]:.0%}')
         col2.write(f'**Win Probability:** {game["Win Probability"].iloc[1]:.0%}')
-        col1.write(f'**Expected Value:** {game["EV"].iloc[0]:.2f}')
-        col2.write(f'**Expected Value:** {game["EV"].iloc[1]:.2f}')
 
         # add space
         col1.write('')
