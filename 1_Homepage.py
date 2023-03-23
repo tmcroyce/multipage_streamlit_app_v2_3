@@ -12,7 +12,6 @@ The simple app is just meant to view the predictions of the day's games.
 
 The [NBA Game Analyzer Tool](https://tmcroyce-multipage-streamlit-app-v2-3-1-homepage-jp4gxf.streamlit.app/NBA_Game_Analyzer_Tool) is meant to view the Machine Learning model's predictions as well as various metrics and exploratory data analysis for the night's games. 
 
-The [NBA Player Analyzer Tool](https://tmcroyce-multipage-streamlit-app-v2-3-1-homepage-jp4gxf.streamlit.app/NBA_Player_Analyzer_Tool) allows the user to analyze specific players playing at specific positions.
 ''')
 
 
