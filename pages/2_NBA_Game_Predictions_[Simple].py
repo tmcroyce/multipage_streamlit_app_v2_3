@@ -290,9 +290,11 @@ games_df_show = games_df.drop(columns=['path'])
 st.table(games_df_show.style.format({'Spread': '{:.1f}', 'Total': '{:.1f}', 'Win Probability': '{:.0%}', 'Moneyline': '{:+}'}))
 
 st.write('Win Probability is the machine learning model\'s prediction of the probability of the team winning the game. EV is the expected value of a bet at the current odds with the model-predicted win probability.')
+st.write('---')
 
 # Game 1
-st.header(f'**Game by Game Predictions**')
+st.header(f'**Model-Predicted Win Probabilities**')
+
 
 # 2 columns
 col1, col2 = st.columns(2)
@@ -322,38 +324,55 @@ games_list = [game_1, game_2, game_3, game_4, game_5, game_6, game_7, game_8, ga
 for game in games_list:
     if len(game) > 0:
         # put first team on left, second on right
-        col1, col2 = st.columns(2)
+        col1, col2, col3 = st.columns([.25, .5, .25])
         team1 = game['Team'].iloc[0]
         # write team1 vs team2
         col1.subheader(f'{team1} @ {game["Team"].iloc[1]}')
-        col2.subheader(' ')
+        col3.subheader(' ')
 
         col1.write(f'**{game["Team"].iloc[0]}**')
-        col2.write(' ')
-        col2.write(' ')
-        col2.write(' ')
+        col3.write(' ')
+        col3.write(' ')
+        col3.write(' ')
         
         # add team logo
         team1_logo_path = 'data/team/logos/' + game['team_abv'].iloc[0] + '.png'
         col1.image(team1_logo_path, width=100)
 
         team2_logo_path = 'data/team/logos/' + game['team_abv'].iloc[1] + '.png'
-        col2.write(f'**{game["Team"].iloc[1]}**')
-        col2.image(team2_logo_path, width=100)
+        col3.write(f'**{game["Team"].iloc[1]}**')
+        col3.image(team2_logo_path, width=100)
 
         # Add Metrics
         col1.write(f'**Spread:** {game["Spread"].iloc[0]}')
-        col2.write(f'**Spread:** {game["Spread"].iloc[1]}')
+        col3.write(f'**Spread:** {game["Spread"].iloc[1]}')
         col1.write(f'**Total:** {game["Total"].iloc[0]}')
-        col2.write(f'**Total:** {game["Total"].iloc[1]}')
+        col3.write(f'**Total:** {game["Total"].iloc[1]}')
         col1.write(f'**Moneyline:** {game["Moneyline"].iloc[0]}')
-        col2.write(f'**Moneyline:** {game["Moneyline"].iloc[1]}')
+        col3.write(f'**Moneyline:** {game["Moneyline"].iloc[1]}')
         col1.write(f'**Win Probability:** {game["Win Probability"].iloc[0]:.0%}')
-        col2.write(f'**Win Probability:** {game["Win Probability"].iloc[1]:.0%}')
+        col3.write(f'**Win Probability:** {game["Win Probability"].iloc[1]:.0%}')
 
         # add space
         col1.write('')
-        col2.write('')
+        col3.write('')
+
+        # add donut chart of team's win probability
+
+        col2.write(' ')
+        col2.write(' ')
+        # add donut chart
+        fig = px.pie(game, values='Win Probability', names='Team', hole=.3, 
+             color_discrete_sequence=px.colors.sequential.RdBu)
+
+        fig.update_traces(textposition='inside', textinfo='percent+label', 
+                        hovertemplate='%{label}: %{value} (%{percent})<extra></extra>')
+
+
+        col2.plotly_chart(fig, use_container_width=True)
+            
+        
+
         # add divider
         st.write('---')
 
