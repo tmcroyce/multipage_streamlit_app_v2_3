@@ -75,11 +75,11 @@ player_advanced_metrics = pd.read_csv('data/team/aggregates/daily_updates/advanc
 player_names = pd.read_csv('data/player/aggregates_of_aggregates/all_player_names.csv')
 
 # D vs Position from today
-d_vs_position = pd.read_csv('data/team/aggregates/daily_updates/defense_vs_position'+str(today)+'.csv', low_memory=False)
-d_vs_position['PTS_rank'] = d_vs_position.groupby('POS')['PTS'].rank(ascending = False)
-d_vs_position['PTS_rank'] = d_vs_position['PTS_rank'].astype(int)
-keep_cols = ['TEAM', 'POS', 'PTS', 'REB', 'FG%', 'PTS_rank']
-d_vs_position = d_vs_position[keep_cols]
+#d_vs_position = pd.read_csv('data/team/aggregates/daily_updates/defense_vs_position'+str(today)+'.csv', low_memory=False)
+#d_vs_position['PTS_rank'] = d_vs_position.groupby('POS')['PTS'].rank(ascending = False)
+#d_vs_position['PTS_rank'] = d_vs_position['PTS_rank'].astype(int)
+#keep_cols = ['TEAM', 'POS', 'PTS', 'REB', 'FG%', 'PTS_rank']
+#d_vs_position = d_vs_position[keep_cols]
 
 # Player GbG
 player_gbg = pd.read_csv('data/player/aggregates/Trad&Adv_box_scores_GameView.csv', low_memory=False)
@@ -934,40 +934,40 @@ while n <= tot_games:
         color = 'green' if int(val) < 10 else 'white'
         return f'background-color: {color}'
     
-    team_1_def = d_vs_position[d_vs_position['TEAM'] == team1]
-    team_2_def = d_vs_position[d_vs_position['TEAM'] == team2]
-    col1.dataframe(team_1_def.style.format(subset=['PTS', 'REB', 'FG%'], formatter="{:.1f}").format(subset=['PTS_rank'], formatter="{:.0f}").applymap(color_fg, subset=['PTS_rank']))
-    col2.dataframe(team_2_def.style.format(subset=['PTS', 'REB', 'FG%'], formatter="{:.1f}").format(subset=['PTS_rank'], formatter="{:.0f}").applymap(color_fg, subset=['PTS_rank']))
+    # team_1_def = d_vs_position[d_vs_position['TEAM'] == team1]
+    # team_2_def = d_vs_position[d_vs_position['TEAM'] == team2]
+    # col1.dataframe(team_1_def.style.format(subset=['PTS', 'REB', 'FG%'], formatter="{:.1f}").format(subset=['PTS_rank'], formatter="{:.0f}").applymap(color_fg, subset=['PTS_rank']))
+    # col2.dataframe(team_2_def.style.format(subset=['PTS', 'REB', 'FG%'], formatter="{:.1f}").format(subset=['PTS_rank'], formatter="{:.0f}").applymap(color_fg, subset=['PTS_rank']))
 
-    st.markdown("Implied Player Production Increase")
-    col1, col2 = st.columns(2)
+    # st.markdown("Implied Player Production Increase")
+    # col1, col2 = st.columns(2)
     
-    team_1_bad_def = team_1_def[team_1_def['PTS_rank'] < 10]
-    team_2_bad_def = team_2_def[team_2_def['PTS_rank'] < 10]
+    # team_1_bad_def = team_1_def[team_1_def['PTS_rank'] < 10]
+    # team_2_bad_def = team_2_def[team_2_def['PTS_rank'] < 10]
 
-    if len(team_1_bad_def) > 0:
-        # make team1baddef have index of position
-        team_1_bad_def = team_1_bad_def.set_index('POS')
-        # join with starting lineup of other team
-        team_1_bad_def = team_1_bad_def.join(starters_df2_t.rename(columns={'Starting Lineup': 'Implied Outperformer(s)'}))
-        col1.dataframe(team_1_bad_def.style.format(subset=['PTS', 'REB', 'FG%'], 
-                                                    formatter="{:.1f}").format(subset=['PTS_rank'], 
-                                                    formatter="{:.0f}").applymap(color_fg, subset=['PTS_rank']))
-    else:
-        col1.markdown("No positions with especially bad defense")
+    # if len(team_1_bad_def) > 0:
+    #     # make team1baddef have index of position
+    #     team_1_bad_def = team_1_bad_def.set_index('POS')
+    #     # join with starting lineup of other team
+    #     team_1_bad_def = team_1_bad_def.join(starters_df2_t.rename(columns={'Starting Lineup': 'Implied Outperformer(s)'}))
+    #     col1.dataframe(team_1_bad_def.style.format(subset=['PTS', 'REB', 'FG%'], 
+    #                                                 formatter="{:.1f}").format(subset=['PTS_rank'], 
+    #                                                 formatter="{:.0f}").applymap(color_fg, subset=['PTS_rank']))
+    # else:
+    #     col1.markdown("No positions with especially bad defense")
 
-    if len(team_2_bad_def) > 0:
-        # make team2baddef have index of position
-        team_2_bad_def = team_2_bad_def.set_index('POS')
-        # join with starting lineup of other team
-        team_2_bad_def2 = team_2_bad_def.join(starters_df_t.rename(columns={'Starting Lineup': 'Implied Outperformer(s)'}))
-        col2.dataframe(team_2_bad_def2.style.format(subset=['PTS', 'REB', 'FG%'], 
-                                                    formatter="{:.1f}").format(subset=['PTS_rank'], 
-                                                    formatter="{:.0f}").applymap(color_fg, subset=['PTS_rank']))
+    # if len(team_2_bad_def) > 0:
+    #     # make team2baddef have index of position
+    #     team_2_bad_def = team_2_bad_def.set_index('POS')
+    #     # join with starting lineup of other team
+    #     team_2_bad_def2 = team_2_bad_def.join(starters_df_t.rename(columns={'Starting Lineup': 'Implied Outperformer(s)'}))
+    #     col2.dataframe(team_2_bad_def2.style.format(subset=['PTS', 'REB', 'FG%'], 
+    #                                                 formatter="{:.1f}").format(subset=['PTS_rank'], 
+    #                                                 formatter="{:.0f}").applymap(color_fg, subset=['PTS_rank']))
 
-    else:
-        # write 'no positions with especially bad defense' in red color
-        col2.write("No positions with especially bad defense", color = 'red')
+    # else:
+    #     # write 'no positions with especially bad defense' in red color
+    #     col2.write("No positions with especially bad defense", color = 'red')
         
     st.markdown("")
     st.markdown("**Expected Minutes and Usage**")
