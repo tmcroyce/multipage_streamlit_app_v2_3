@@ -72,12 +72,12 @@ player_metrics = pd.read_csv('data/player/aggregates_of_aggregates/trad_season_a
 player_advanced_metrics = pd.read_csv('data/team/aggregates/daily_updates/advanced_player_stats'+str(today)+'.csv', low_memory=False)
 player_names = pd.read_csv('data/player/aggregates_of_aggregates/all_player_names.csv')
 
-# D vs Position from today
-d_vs_position = pd.read_csv('data/team/aggregates/daily_updates/defense_vs_position'+str(today)+'.csv', low_memory=False)
-d_vs_position['PTS_rank'] = d_vs_position.groupby('POS')['PTS'].rank(ascending = False)
-d_vs_position['PTS_rank'] = d_vs_position['PTS_rank'].astype(int)
-keep_cols = ['TEAM', 'POS', 'PTS', 'REB', 'FG%', 'PTS_rank']
-d_vs_position = d_vs_position[keep_cols]
+# # D vs Position from today
+# d_vs_position = pd.read_csv('data/team/aggregates/daily_updates/defense_vs_position'+str(today)+'.csv', low_memory=False)
+# d_vs_position['PTS_rank'] = d_vs_position.groupby('POS')['PTS'].rank(ascending = False)
+# d_vs_position['PTS_rank'] = d_vs_position['PTS_rank'].astype(int)
+# keep_cols = ['TEAM', 'POS', 'PTS', 'REB', 'FG%', 'PTS_rank']
+# d_vs_position = d_vs_position[keep_cols]
 
 # Player GbG
 player_gbg = pd.read_csv('data/player/aggregates/Trad&Adv_box_scores_GameView.csv', low_memory=False)
