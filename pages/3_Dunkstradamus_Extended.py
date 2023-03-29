@@ -467,8 +467,8 @@ b = 2
 n = 1
 keyyy = 1
 keyyyy = 100
-skey = 20
-wkey = 50
+skey = 1000
+wkey = 10000
 
 st.subheader('**Game Metrics**')
 
@@ -479,8 +479,33 @@ col1, col2 = st.columns(2)
 # st.write('Select this box to see all games today.')
 # see_all_games = col1.checkbox('See All Games?')
 
+
+        # add centered title
+st.markdown("""
+    <style>
+    .custom-title3 {
+        text-align: center;
+        color: white;
+        font-size: 48px;
+        font-weight: bold;
+        background: linear-gradient(90deg, #00070e 0%, #000851 100%);
+        padding: 20px;
+        border-radius: 10px;
+        margin: 0 auto;
+        width: 100%;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
+#st.markdown(f'<div class="custom-title">{game_title}</div>', unsafe_allow_html=True)
+
+
 while n <= tot_games:
     # Display each game today
+    game_title = 'Game #' + str(n)+ ': ' + games_odds['TODAY'].iloc[a] + ' @ ' + games_odds['TODAY'].iloc[a+1]
+    st.markdown(f'<div class="custom-title3">{game_title}</div>', unsafe_allow_html=True)
+
     st.subheader('Game #' + str(n)+ ': ' + games_odds['TODAY'].iloc[a] + ' @ ' + games_odds['TODAY'].iloc[a+1])
 
     # Locate Game
@@ -516,7 +541,7 @@ while n <= tot_games:
     st.write("---")
 
     # Display Team Stats
-    st.write('**Team Stats**')
+
     team_1_boxes = boxes_22[boxes_22['trad_team'] == team1]
     team_2_boxes = boxes_22[boxes_22['trad_team'] == team2]
     league_averages_22 = boxes_22.mean()
@@ -543,6 +568,32 @@ while n <= tot_games:
                              'adv_tov%']
 
     all_display_columns = trad_display_columns + adv_display_columns
+
+
+        # add centered title
+    st.markdown("""
+        <style>
+        .custom-title2 {
+            text-align: center;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            background: linear-gradient(90deg, #1CB5E0 0%, #000851 100%);
+            padding: 10px;
+            border-radius: 10px;
+            margin: 0 auto;
+            width: 50%;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
+        }
+        </style>
+        """, unsafe_allow_html=True)
+
+    st.markdown('<div class="custom-title2">Team Metric Distributions</div>', unsafe_allow_html=True)
+    
+    st.write(' ')
+    st.write(' ')
+    st.write(' ')
+
 
     # display averages
     col1, col2 = st.columns(2)
@@ -592,6 +643,7 @@ while n <= tot_games:
                                         'adv_efg%':'eFG%', 'adv_pace':'PACE', 'adv_ts%':'TS%', 'adv_tov%':'TOV%'}, inplace=True)
         
 
+            #GAME METRICS
 
         # violin plot each column from team_1_boxes with all_display_columns, but one plot total
         st.write('**Season Distribution:**')
@@ -639,9 +691,12 @@ while n <= tot_games:
         # Add Chosen Statistic, CDF to compare team with league
         st.write('**Chosen Statistic, Cumulative Distribution Function:**')
         fig = go.Figure()
-        fig.add_trace(go.Histogram(x=team_1_boxes_fixed[stat], name=team1, histnorm='probability', cumulative_enabled=True, opacity=0.15, ybins = dict(start=0, end=1, size=0.1)))
-        fig.add_trace(go.Histogram(x=boxes_22_fixed[stat], name='League', histnorm='probability', cumulative_enabled=True, opacity=0.15, ybins = dict(start=0, end=1, size=0.1)))
+        fig.add_trace(go.Histogram(x=team_1_boxes_fixed[stat], name=team1, histnorm='probability', cumulative_enabled=True, opacity=0.2, ybins=dict(start=0, end=1, size=0.1),
+                                marker=dict(color='blue', line=dict(color='black', width=1))))
+        fig.add_trace(go.Histogram(x=boxes_22_fixed[stat], name='League', histnorm='probability', cumulative_enabled=True, opacity=0.2, ybins=dict(start=0, end=1, size=0.1),
+                                marker=dict(color='red', line=dict(color='black', width=1))))
         fig.update_layout(barmode='overlay')
+        fig.update_xaxes(range=[min(boxes_22_fixed[stat]), max(team_1_boxes_fixed[stat])])
         # height 500
         fig.update_layout(height=500)
         st.plotly_chart(fig, use_container_width=True)
@@ -751,9 +806,14 @@ while n <= tot_games:
         # Add Chosen Statistic, CDF to compare team with league
         st.write('**Chosen Statistic, Cumulative Distribution Function:**')
         fig = go.Figure()
-        fig.add_trace(go.Histogram(x=team_2_boxes_fixed[stat], name=team2, histnorm='probability', cumulative_enabled=True, opacity=0.15, ybins = dict(start=0, end=1, size=0.1)))
-        fig.add_trace(go.Histogram(x=boxes_22_fixed[stat], name='League', histnorm='probability', cumulative_enabled=True, opacity=0.15, ybins = dict(start=0, end=1, size=0.1)))
+        fig.add_trace(go.Histogram(x=team_1_boxes_fixed[stat], name=team2, histnorm='probability', cumulative_enabled=True, opacity=0.2, ybins=dict(start=0, end=1, size=0.1),
+                                marker=dict(color='blue', line=dict(color='black', width=1))))
+        fig.add_trace(go.Histogram(x=boxes_22_fixed[stat], name='League', histnorm='probability', cumulative_enabled=True, opacity=0.2, ybins=dict(start=0, end=1, size=0.1),
+                                marker=dict(color='red', line=dict(color='black', width=1))))
         fig.update_layout(barmode='overlay')
+        # set xlim to team max
+        fig.update_xaxes(range=[min(boxes_22_fixed[stat]), max(team_2_boxes_fixed[stat])])
+       
         # height 500
         fig.update_layout(height=500)
         st.plotly_chart(fig, use_container_width=True)
@@ -771,7 +831,6 @@ while n <= tot_games:
         # fig.add_trace(go.Box(y=boxes_22['adv_defrtg'], name='League DEFRtg', marker_color = 'indianred'))
         # fig.update_layout(height=500)
         # st.plotly_chart(fig)
-
 
 
 
@@ -913,11 +972,19 @@ while n <= tot_games:
     out_2_df = out_2_df.dropna(subset=['Player'])
     mnp1_df = mnp1_df.dropna(subset=['Player'])
     mnp2_df = mnp2_df.dropna(subset=['Player'])
-    
+    #st.markdown(f'<div class="custom-title">{game_title}</div>', unsafe_allow_html=True)
+
 
     # show players who may not play, if applicable
     if len(may_not_play_total) > 0:
-        st.markdown('Players who **MAY NOT PLAY**:')
+        
+        # add new markdown title, players who may not play
+        st.markdown('<div class="custom-title2">Players who may not play:', unsafe_allow_html=True)
+
+        st.subheader(' ')
+        st.subheader(' ')
+
+        
         col1, col2 = st.columns(2)
         if may_not_play_1_players_list != '':
             # add df
