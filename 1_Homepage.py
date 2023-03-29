@@ -24,6 +24,7 @@ st.markdown("""
     """, unsafe_allow_html=True)
 
 st.markdown('<div class="custom-title">Dunkstradamus</div>', unsafe_allow_html=True)
+st.write('')
 
 # add photo
 st.image('images/dunkstradamus.png', use_column_width=True)
