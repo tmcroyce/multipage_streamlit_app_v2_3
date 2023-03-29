@@ -293,8 +293,9 @@ st.markdown("""
 
 st.markdown('<div class="custom-title">Dunkstradamus Extended</div>', unsafe_allow_html=True)
 
-st.subheader('NBA Predictions with Machine Learning')
-st.markdown('**Version 3.1**')
+st.subheader(' ')
+st.subheader(' ')
+st.subheader(' ')
 st.write('This app predicts the winner of NBA games using data from the current season and previous seasons.')
 st.write('These predictions are based on probable lineups and can change if a player is ruled out or in.')
 
@@ -598,15 +599,12 @@ while n <= tot_games:
         stat = st.selectbox('', team_1_boxes_fixed.columns, key = keyyy)
         fig = px.violin(team_1_boxes_fixed, y=stat, box=True, points='all', hover_data=team_1_boxes_fixed.columns)
         # add league violin to the plot, from boxes_22
-        fig.add_trace(go.Violin(y=boxes_22_fixed[stat], name='League', fillcolor = 'grey', box_visible=True, meanline_visible=True))
+        fig.add_trace(go.Violin(y=boxes_22_fixed[stat], name='League', box_visible=True, meanline_visible=True))
         fig.update_layout(height=500)
         # add legend
-        fig.update_layout(legend=dict(
-            yanchor="top",
-            y=0.99,
-            xanchor="left",
-            x=0.01
-        ))
+
+        fig.data[0].width = 0.75
+        fig.data[1].width = 0.75
 
         st.plotly_chart(fig, use_container_width=True)
 
@@ -616,7 +614,7 @@ while n <= tot_games:
         # Plot the histograms and kde for team1 and league average on same plot, opacity 0.5
         st.write('**Chosen Statistic, Histogram Comparison with Kernel Density Estimation:**')
         fig = go.Figure()
-        fig.add_trace(go.Histogram(x=team_1_boxes_fixed[stat], name=team1, histnorm='probability density', opacity=0.15, ybins = dict(start=0, end=1, size=0.05)))
+        fig.add_trace(go.Histogram(x=team_1_boxes_fixed[stat], name=team1, histnorm='probability density', opacity=0.15, ybins = dict(start=0, end=1, size=0.1)))
         fig.add_trace(go.Histogram(x=boxes_22_fixed[stat], name='League', histnorm='probability density', opacity=0.15, ybins = dict(start=0, end=1, size=0.1)))
         fig.update_layout(barmode='overlay')
 
@@ -636,6 +634,18 @@ while n <= tot_games:
 
         fig.update_layout(height=500)
         st.plotly_chart(fig, use_container_width=True)
+
+
+        # Add Chosen Statistic, CDF to compare team with league
+        st.write('**Chosen Statistic, Cumulative Distribution Function:**')
+        fig = go.Figure()
+        fig.add_trace(go.Histogram(x=team_1_boxes_fixed[stat], name=team1, histnorm='probability', cumulative_enabled=True, opacity=0.15, ybins = dict(start=0, end=1, size=0.1)))
+        fig.add_trace(go.Histogram(x=boxes_22_fixed[stat], name='League', histnorm='probability', cumulative_enabled=True, opacity=0.15, ybins = dict(start=0, end=1, size=0.1)))
+        fig.update_layout(barmode='overlay')
+        # height 500
+        fig.update_layout(height=500)
+        st.plotly_chart(fig, use_container_width=True)
+
 
         # # plot adv_pace, adv_offrtg, adv_defrtg, adv_ts% for team_1 in a box plot versus league
         # st.write('**Season Box Plot:**')
@@ -707,15 +717,15 @@ while n <= tot_games:
         fig.add_trace(go.Violin(y=boxes_22_fixed[stat2], name='League', box_visible=True, meanline_visible=True, ))
         # set height of plot
         fig.update_layout(height=500)
+        fig.data[0].width = 0.75
+        fig.data[1].width = 0.75
         st.plotly_chart(fig, use_container_width=True)
-
-
 
 
         # Add Chosen Statistic, Historic Comparison with KDE, same as above, for team 2, in plotly
         st.write('**Chosen Statistic, Histogram Comparison with Kernel Density Estimation:**')
         fig = go.Figure()
-        fig.add_trace(go.Histogram(x=team_2_boxes_fixed[stat], name=team2, histnorm='probability density', opacity=0.15, ybins = dict(start=0, end=1, size=0.05)))
+        fig.add_trace(go.Histogram(x=team_2_boxes_fixed[stat], name=team2, histnorm='probability density', opacity=0.15, ybins = dict(start=0, end=1, size=0.1)))
         fig.add_trace(go.Histogram(x=boxes_22_fixed[stat], name='League', histnorm='probability density', opacity=0.15, ybins = dict(start=0, end=1, size=0.1)))
         fig.update_layout(barmode='overlay')
 
@@ -734,6 +744,17 @@ while n <= tot_games:
         fig.add_trace(go.Scatter(x=x2_range, y=x2_dens(x2_range), name='League Density', line_color='orange'))
 
 
+        fig.update_layout(height=500)
+        st.plotly_chart(fig, use_container_width=True)
+
+
+        # Add Chosen Statistic, CDF to compare team with league
+        st.write('**Chosen Statistic, Cumulative Distribution Function:**')
+        fig = go.Figure()
+        fig.add_trace(go.Histogram(x=team_2_boxes_fixed[stat], name=team2, histnorm='probability', cumulative_enabled=True, opacity=0.15, ybins = dict(start=0, end=1, size=0.1)))
+        fig.add_trace(go.Histogram(x=boxes_22_fixed[stat], name='League', histnorm='probability', cumulative_enabled=True, opacity=0.15, ybins = dict(start=0, end=1, size=0.1)))
+        fig.update_layout(barmode='overlay')
+        # height 500
         fig.update_layout(height=500)
         st.plotly_chart(fig, use_container_width=True)
 
@@ -820,9 +841,12 @@ while n <= tot_games:
 
     # Team 1 MNP players
     may_not_play_1 = game_expected_min[game_expected_min['GTD'] == 1]
+
     # check
 
     may_not_play_1_players_list = may_not_play_1['name'].tolist()
+
+
     mnp1_df = pd.DataFrame(may_not_play_1_players_list, columns=['Player'])
 
     # May Not Play, Team 2
@@ -862,6 +886,9 @@ while n <= tot_games:
     mnp1_df['name_final'] = mnp1_df.apply(get_fixed_name, axis=1)
     mnp2_df['name_final'] = mnp2_df.apply(get_fixed_name, axis=1)
 
+
+    
+
             # add usage rates to out_1_df
     out_1_df = pd.merge(out_1_df, usage_rates, left_on='name_final', right_on = 'Player', how='left')
     out_2_df = pd.merge(out_2_df, usage_rates, left_on='name_final', right_on = 'Player', how='left')
@@ -884,6 +911,8 @@ while n <= tot_games:
     # drop Player NAs
     out_1_df = out_1_df.dropna(subset=['Player'])
     out_2_df = out_2_df.dropna(subset=['Player'])
+    mnp1_df = mnp1_df.dropna(subset=['Player'])
+    mnp2_df = mnp2_df.dropna(subset=['Player'])
     
 
     # show players who may not play, if applicable
@@ -954,7 +983,7 @@ while n <= tot_games:
     col1.dataframe(starters_df_t)
     col2.dataframe(starters_df2_t)
 
-    st.markdown("Team Defense by Position")
+    #st.markdown("Team Defense by Position")
     col1, col2 = st.columns(2)
     
     def color_fg(val):
