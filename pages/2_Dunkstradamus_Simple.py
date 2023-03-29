@@ -290,7 +290,7 @@ games_df_show = games_df.drop(columns=['path'])
 # add select button if they want to see a table with all games and teams
 st.table(games_df_show.style.format({'Spread': '{:.1f}', 'Total': '{:.1f}', 'Win Probability': '{:.0%}', 'Moneyline': '{:+}'}))
 
-st.write('Win Probability is the machine learning model\'s prediction of the probability of the team winning the game. EV is the expected value of a bet at the current odds with the model-predicted win probability.')
+st.write('Win Probability is the machine learning model\'s prediction of the probability of the team winning the game.')
 st.write('---')
 
 # Game 1
