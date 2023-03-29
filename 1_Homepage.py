@@ -1,17 +1,23 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
+st.set_page_config(layout='wide')
 
-st.title('Welcome!')
 st.sidebar.success('Select a page to get started!')
 
+
+# add photo
+st.image('images/dunkstradamus.png', use_column_width=True)
+
+st.title('Dunkstradamus Predictions')
+
 st.write('''
-The [NBA Game Predictions [Simple]](https://tmcroyce-multipage-streamlit-app-v2-3-1-homepage-jp4gxf.streamlit.app/NBA_Game_Predictions_[Simple]) app is a simple app that uses a machine learning model to predict the outcome of NBA games. 
-The model is trained on data from the 2016-present NBA seasons, and is retrained daily using the latest data.
-The simple app is just meant to view the predictions of the day's games.
+Welcome to the [Dunsktradamus [Simple]](https://tmcroyce-multipage-streamlit-app-v2-3-1-homepage-jp4gxf.streamlit.app/NBA_Game_Predictions_[Simple]) app --  a user-friendly application powered by a machine learning model to forecast NBA game outcomes. Continuously updated, the model is trained on data from the 2016 season up until the present and undergoes daily retraining to ensure accurate predictions. The Simple app is perfect for users seeking a quick glance at the day's game predictions.
 
-The [NBA Game Analyzer Tool](https://tmcroyce-multipage-streamlit-app-v2-3-1-homepage-jp4gxf.streamlit.app/NBA_Game_Analyzer_Tool) is meant to view the Machine Learning model's predictions as well as various metrics and exploratory data analysis for the night's games. 
+For those who desire a more comprehensive analysis, the [Dunkstradamus [Extended]](https://tmcroyce-multipage-streamlit-app-v2-3-1-homepage-jp4gxf.streamlit.app/NBA_Game_Analyzer_Tool) app offers a deeper dive into the machine learning model's predictions. In addition to forecasts, the Extended app provides valuable metrics and insightful exploratory data analysis for each game, offering a richer understanding of the night's matchups.
 
+
+Select an app to get started!
 ''')
 
 
