@@ -596,7 +596,7 @@ while n <= tot_games:
         st.write('**Season Distribution:**')
         st.write(f'What stat do you want to see for **{team1}**?')
         stat = st.selectbox('', team_1_boxes_fixed.columns, key = keyyy)
-        fig = px.violin(team_1_boxes_fixed, y=stat, box=True, points='all', hover_data=team_1_boxes_fixed.columns)
+        fig = px.violin(team_1_boxes_fixed, y=stat, box=True, points='all', name = 'Team', hover_data=team_1_boxes_fixed.columns)
         # add league violin to the plot, from boxes_22
         fig.add_trace(go.Violin(y=boxes_22_fixed[stat], name='League', box_visible=True, meanline_visible=True))
         fig.update_layout(height=500)
@@ -607,7 +607,7 @@ while n <= tot_games:
             xanchor="left",
             x=0.01
         ))
-        
+
         st.plotly_chart(fig, use_container_width=True)
 
         # import gaussian_kde from scipy.stats
