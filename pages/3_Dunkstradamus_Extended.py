@@ -273,7 +273,7 @@ games_df['path'] = 'data/team/logos/' + games_df['trad_team'] + '.png'
 
 
 ############ START OF APP ############
-st.markdown("<h1 style='text-align: center; color: grey;'>Dunkstradamus (Extended))</h1>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center; color: grey;'>Dunkstradamus (Extended)</h1>", unsafe_allow_html=True)
 
 st.subheader('NBA Predictions with Machine Learning')
 st.markdown('**Version 3.1**')
