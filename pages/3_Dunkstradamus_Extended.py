@@ -600,7 +600,7 @@ while n <= tot_games:
         # add league violin to the plot, from boxes_22
         fig.add_trace(go.Violin(y=boxes_22_fixed[stat], name='League', box_visible=True, meanline_visible=True))
         fig.update_layout(height=500)
-        st.plotly_chart(fig)
+        st.plotly_chart(fig, use_container_width=True)
 
         # import gaussian_kde from scipy.stats
         from scipy.stats import gaussian_kde
@@ -627,7 +627,7 @@ while n <= tot_games:
         fig.add_trace(go.Scatter(x=x2_range, y=x2_dens(x2_range), name='League Density', line_color='orange'))
 
         fig.update_layout(height=500)
-        st.plotly_chart(fig)
+        st.plotly_chart(fig, use_container_width=True)
 
         # # plot adv_pace, adv_offrtg, adv_defrtg, adv_ts% for team_1 in a box plot versus league
         # st.write('**Season Box Plot:**')
@@ -699,7 +699,7 @@ while n <= tot_games:
         fig.add_trace(go.Violin(y=boxes_22_fixed[stat2], name='League', box_visible=True, meanline_visible=True, ))
         # set height of plot
         fig.update_layout(height=500)
-        st.plotly_chart(fig)
+        st.plotly_chart(fig, use_container_width=True)
 
 
 
@@ -727,7 +727,7 @@ while n <= tot_games:
 
 
         fig.update_layout(height=500)
-        st.plotly_chart(fig)
+        st.plotly_chart(fig, use_container_width=True)
 
 
 
