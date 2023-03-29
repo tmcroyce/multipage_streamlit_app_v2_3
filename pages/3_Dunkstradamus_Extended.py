@@ -273,7 +273,8 @@ games_df['path'] = 'data/team/logos/' + games_df['trad_team'] + '.png'
 
 
 ############ START OF APP ############
-st.title('Dunkstradamus [Extended]')
+st.markdown("<h1 style='text-align: center; color: grey;'>Dunkstradamus (Extended))</h1>", unsafe_allow_html=True)
+
 st.subheader('NBA Predictions with Machine Learning')
 st.markdown('**Version 3.1**')
 st.write('This app predicts the winner of NBA games using data from the current season and previous seasons.')

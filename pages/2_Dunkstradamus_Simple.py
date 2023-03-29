@@ -266,7 +266,10 @@ games_df['path'] = 'data/team/logos/' + games_df['team_abv'] + '.png'
 
 ############ START OF APP ############
 
-st.title('NBA Predictions with Machine Learning')
+# add centered title
+st.markdown("<h1 style='text-align: center; color: grey;'>Dunkstradamus (Simple)</h1>", unsafe_allow_html=True)
+
+
 st.markdown('**Version 3.1**')
 st.write('This app predicts the winner of NBA games using data from the current season and previous seasons.')
 st.write('The model is re-trained daily with new data, and typically tests at 82-83 percent accuracy.')
