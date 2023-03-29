@@ -500,10 +500,16 @@ st.markdown("""
 
 #st.markdown(f'<div class="custom-title">{game_title}</div>', unsafe_allow_html=True)
 
+# Create a list to store game titles and a dictionary to store game data
+game_titles = []
+# todo: create a dictionary to store game data
+game_data_dict = {}
 
 while n <= tot_games:
     # Display each game today
     game_title = 'Game #' + str(n)+ ': ' + games_odds['TODAY'].iloc[a] + ' @ ' + games_odds['TODAY'].iloc[a+1]
+    # append game_title to game_titles list
+    game_titles.append(game_title)
     st.markdown(f'<div class="custom-title3">{game_title}</div>', unsafe_allow_html=True)
 
     st.subheader('Game #' + str(n)+ ': ' + games_odds['TODAY'].iloc[a] + ' @ ' + games_odds['TODAY'].iloc[a+1])
