@@ -600,6 +600,14 @@ while n <= tot_games:
         # add league violin to the plot, from boxes_22
         fig.add_trace(go.Violin(y=boxes_22_fixed[stat], name='League', box_visible=True, meanline_visible=True))
         fig.update_layout(height=500)
+        # add legend
+        fig.update_layout(legend=dict(
+            yanchor="top",
+            y=0.99,
+            xanchor="left",
+            x=0.01
+        ))
+        
         st.plotly_chart(fig, use_container_width=True)
 
         # import gaussian_kde from scipy.stats
