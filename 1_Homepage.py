@@ -5,11 +5,13 @@ st.set_page_config(layout='wide')
 
 st.sidebar.success('Select a page to get started!')
 
+st.markdown("<h1 style='text-align: center; color: red;'>Dunkstradamus Predictions</h1>", unsafe_allow_html=True)
 
 # add photo
 st.image('images/dunkstradamus.png', use_column_width=True)
 
 st.title('Dunkstradamus Predictions')
+
 
 st.write('''
 Welcome to the home of Dunkstradamus! \n
