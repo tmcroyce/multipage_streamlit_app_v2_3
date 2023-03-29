@@ -267,7 +267,25 @@ games_df['path'] = 'data/team/logos/' + games_df['team_abv'] + '.png'
 ############ START OF APP ############
 
 # add centered title
-st.markdown("<h1 style='text-align: center; color: grey;'>Dunkstradamus </h1>", unsafe_allow_html=True)
+st.markdown("""
+    <style>
+    .custom-title {
+        text-align: center;
+        color: white;
+        font-size: 48px;
+        font-weight: bold;
+        background: linear-gradient(90deg, #1CB5E0 0%, #000851 100%);
+        padding: 20px;
+        border-radius: 10px;
+        margin: 0 auto;
+        width: 50%;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
+st.markdown('<div class="custom-title">Dunkstradamus</div>', unsafe_allow_html=True)
+
 
 
 st.markdown('**Version 3.1**')
