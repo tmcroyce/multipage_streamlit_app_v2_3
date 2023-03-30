@@ -281,11 +281,11 @@ st.markdown("""
         color: white;
         font-size: 48px;
         font-weight: bold;
-        background: linear-gradient(90deg, #1CB5E0 0%, #000851 100%);
+        background: linear-gradient(90deg, #2c3333 30%, #00072b 100%);
         padding: 20px;
         border-radius: 10px;
         margin: 0 auto;
-        width: 50%;
+        width: 100%;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
     }
     </style>
@@ -470,7 +470,6 @@ keyyyy = 100
 skey = 1000
 wkey = 10000
 
-st.subheader('**Game Metrics**')
 
 
 
@@ -488,7 +487,7 @@ st.markdown("""
         color: white;
         font-size: 48px;
         font-weight: bold;
-        background: linear-gradient(90deg, #00070e 0%, #000851 100%);
+        background: linear-gradient(90deg, #2c3333 30%, #00072b 100%);
         padding: 20px;
         border-radius: 10px;
         margin: 0 auto;
@@ -511,8 +510,9 @@ while n <= tot_games:
     # append game_title to game_titles list
     game_titles.append(game_title)
     st.markdown(f'<div class="custom-title3">{game_title}</div>', unsafe_allow_html=True)
-
-    st.subheader('Game #' + str(n)+ ': ' + games_odds['TODAY'].iloc[a] + ' @ ' + games_odds['TODAY'].iloc[a+1])
+    st.write(' ')
+    st.write(' ')
+    st.write(' ')
 
     # Locate Game
     game = games_odds.iloc[a:b]
@@ -544,7 +544,7 @@ while n <= tot_games:
         st.write("")
 
     # Page Break
-    st.write("---")
+    # st.write("---")
 
     # Display Team Stats
 
@@ -584,7 +584,7 @@ while n <= tot_games:
             color: white;
             font-size: 24px;
             font-weight: bold;
-            background: linear-gradient(90deg, #1CB5E0 0%, #000851 100%);
+            background: linear-gradient(90deg, #2c3333 30%, #00072b 100%);
             padding: 10px;
             border-radius: 10px;
             margin: 0 auto;
@@ -697,13 +697,25 @@ while n <= tot_games:
         # Add Chosen Statistic, CDF to compare team with league
         st.write('**Chosen Statistic, Cumulative Distribution Function:**')
         fig = go.Figure()
-        fig.add_trace(go.Histogram(x=team_1_boxes_fixed[stat], name=team1, histnorm='probability', cumulative_enabled=True, opacity=0.2, ybins=dict(start=0, end=1, size=0.1),
-                                marker=dict(color='blue', line=dict(color='black', width=1))))
-        fig.add_trace(go.Histogram(x=boxes_22_fixed[stat], name='League', histnorm='probability', cumulative_enabled=True, opacity=0.2, ybins=dict(start=0, end=1, size=0.1),
-                                marker=dict(color='red', line=dict(color='black', width=1))))
-        fig.update_layout(barmode='overlay')
-        fig.update_xaxes(range=[min(boxes_22_fixed[stat]), max(team_1_boxes_fixed[stat])])
-        # height 500
+        fig.add_trace(go.Histogram(x=team_1_boxes_fixed[stat], name=team1, histnorm='probability', cumulative_enabled=True, opacity = .1))
+        fig.add_trace(go.Histogram(x=boxes_22_fixed[stat], name='League', histnorm='probability', cumulative_enabled=True, opacity = .1))
+        
+
+        # Calculate CDF for team1 data
+        data = np.sort(team_1_boxes_fixed[stat])
+        cdf = np.arange(1, len(data)+1) / float(len(data))
+
+        # Plot CDF for team1 data
+        fig.add_trace(go.Scatter(x=data, y=cdf, name=team1,
+                                line=dict(color='blue', width=2)))
+
+        # Calculate CDF for league data
+        data = np.sort(boxes_22_fixed[stat])
+        cdf = np.arange(1, len(data)+1) / float(len(data))
+
+        # Plot CDF for league data
+        fig.add_trace(go.Scatter(x=data, y=cdf, name='League',
+                                line=dict(color='orange', width=2)))
         fig.update_layout(height=500)
         st.plotly_chart(fig, use_container_width=True)
 
@@ -812,15 +824,25 @@ while n <= tot_games:
         # Add Chosen Statistic, CDF to compare team with league
         st.write('**Chosen Statistic, Cumulative Distribution Function:**')
         fig = go.Figure()
-        fig.add_trace(go.Histogram(x=team_1_boxes_fixed[stat], name=team2, histnorm='probability', cumulative_enabled=True, opacity=0.2, ybins=dict(start=0, end=1, size=0.1),
-                                marker=dict(color='blue', line=dict(color='black', width=1))))
-        fig.add_trace(go.Histogram(x=boxes_22_fixed[stat], name='League', histnorm='probability', cumulative_enabled=True, opacity=0.2, ybins=dict(start=0, end=1, size=0.1),
-                                marker=dict(color='red', line=dict(color='black', width=1))))
-        fig.update_layout(barmode='overlay')
-        # set xlim to team max
-        fig.update_xaxes(range=[min(boxes_22_fixed[stat]), max(team_2_boxes_fixed[stat])])
-       
-        # height 500
+        fig.add_trace(go.Histogram(x=team_2_boxes_fixed[stat], name=team1, histnorm='probability', cumulative_enabled=True, opacity = .1))
+        fig.add_trace(go.Histogram(x=boxes_22_fixed[stat], name='League', histnorm='probability', cumulative_enabled=True, opacity = .1))
+        
+
+        # Calculate CDF for team1 data
+        data = np.sort(team_2_boxes_fixed[stat])
+        cdf = np.arange(1, len(data)+1) / float(len(data))
+
+        # Plot CDF for team1 data
+        fig.add_trace(go.Scatter(x=data, y=cdf, name=team1,
+                                line=dict(color='blue', width=2)))
+
+        # Calculate CDF for league data
+        data = np.sort(boxes_22_fixed[stat])
+        cdf = np.arange(1, len(data)+1) / float(len(data))
+
+        # Plot CDF for league data
+        fig.add_trace(go.Scatter(x=data, y=cdf, name='League',
+                                line=dict(color='orange', width=2)))
         fig.update_layout(height=500)
         st.plotly_chart(fig, use_container_width=True)
 
@@ -985,7 +1007,7 @@ while n <= tot_games:
     if len(may_not_play_total) > 0:
         
         # add new markdown title, players who may not play
-        st.markdown('<div class="custom-title2">Players who may not play:', unsafe_allow_html=True)
+        st.markdown('<div class="custom-title2">Players who may not play', unsafe_allow_html=True)
 
         st.subheader(' ')
         st.subheader(' ')
@@ -1195,7 +1217,12 @@ while n <= tot_games:
         pass
 
     game_fin = games_df.iloc[a:b]
-    st.markdown('**Game Prediction:**')
+    
+    
+
+    # add 'Game Prediction' title like before
+    st.markdown('<div class="custom-title2">Final Prediction</div>', unsafe_allow_html=True)
+
     # Whichever team has the higher win probability is the predicted winner
     # find the index of the higher win probability
     winner_index = game_fin['Win Probability'].idxmax()

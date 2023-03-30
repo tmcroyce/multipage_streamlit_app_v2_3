@@ -274,11 +274,11 @@ st.markdown("""
         color: white;
         font-size: 48px;
         font-weight: bold;
-        background: linear-gradient(90deg, #1CB5E0 0%, #000851 100%);
+        background: linear-gradient(90deg, #2c3333 30%, #00072b 100%);
         padding: 20px;
         border-radius: 10px;
         margin: 0 auto;
-        width: 50%;
+        width: 100%;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
     }
     </style>
